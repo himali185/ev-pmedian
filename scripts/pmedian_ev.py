@@ -1,11 +1,5 @@
 #!/usr/bin/env python3
-"""
-pmedian_ev.py (LOW-RAM / LOW-DISK MODE) - FIXED
 
-- Handles OSMnx variants that lack geometries_from_point
-- Uses node index directly to pick candidate node IDs (robust)
-- Minimal outputs, designed to run within ~1 GB
-"""
 import os, time, json
 import numpy as np
 import osmnx as ox
@@ -16,16 +10,16 @@ import folium
 import pulp
 from shapely.geometry import Point
 
-# -------------------- TUNABLES (LOW-RESOURCE) --------------------
-USE_BBOX = False                   # use graph_from_point (fast)
-CENTER_POINT = (13.02, 77.59)      # lat,lon center
-POINT_RADIUS_M = 1000              # 1 km radius -> much smaller graph
+
+USE_BBOX = False                   
+CENTER_POINT = (13.02, 77.59)     
+POINT_RADIUS_M = 1000             
 NETWORK_TYPE = "drive"
-DEMAND_SAMPLE = 30                 # tiny demand sample
-CANDIDATE_MAX = 20                 # tiny candidate set
-P_FACILITIES = 1                   # choose 1 site to keep ILP small
+DEMAND_SAMPLE = 30        
+CANDIDATE_MAX = 20       
+P_FACILITIES = 1                  
 OUTDIR = os.path.join(os.getcwd(), "outputs")
-# ---------------------------------------------------------------
+
 
 # Disable OSMnx disk cache to avoid large files
 ox.settings.use_cache = False
